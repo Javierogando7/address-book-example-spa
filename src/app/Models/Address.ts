@@ -3,4 +3,5 @@ export interface Address {
     country: string;
     city: string;
     details: string;
+    clientId: number;
 }

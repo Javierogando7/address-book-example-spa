@@ -1,3 +1,44 @@
-<p>
-  address-list works!
-</p>
+<form>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Pais</mat-label>
+          <input matInput [(ngModel)]="country" name="country" />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Ciudad</mat-label>
+          <input matInput [(ngModel)]="city" name="city" />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Direccion</mat-label>
+          <input
+            matInput
+            placeholder="Calle Primera #3"
+            [(ngModel)]="address"
+            name="address"
+          />
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <button
+    [disabled]="!(city && country && address)"
+    mat-raised-button
+    color="primary"
+    (click)="addAddress()"
+  >
+    Guardar
+  </button>
+</form>
+
+<mat-list #addressList>
+  <p *ngIf="addresses.length < 1">No tiene direcciones</p>
+  <mat-list-item *ngFor="let address of addresses">
+    {{ address.country }}, {{ address.city }}, {{ address.details }}
+  </mat-list-item>
+</mat-list>

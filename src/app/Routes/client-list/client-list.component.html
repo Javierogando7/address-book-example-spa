@@ -1,3 +1,46 @@
-<p>
-  client-list works!
-</p>
+<form>
+  <table cellspacing="0">
+    <tr>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Nombre</mat-label>
+          <input matInput [(ngModel)]="name" name="name" />
+        </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field appearance="fill">
+          <mat-label>Telefono</mat-label>
+          <input matInput [(ngModel)]="phoneNumber" name="phoneNumber" />
+        </mat-form-field>
+      </td>
+    </tr>
+  </table>
+  <button
+    [disabled]="!(phoneNumber && name)"
+    mat-raised-button
+    color="primary"
+    (click)="addClient()"
+  >
+    Guardar
+  </button>
+</form>
+<mat-selection-list
+  #clientList
+  [multiple]="false"
+  (selectionChange)="changeClient(clientList)"
+>
+  <mat-list-option *ngFor="let client of clients" [value]="client">
+    <div mat-line>{{ client.name }}</div>
+
+    <div mat-line>
+      Tel.: {{ client.phoneNumber }}
+      <button
+        mat-button
+        color="primary"
+        aria-label="Example icon button with a home icon"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-list-option>
+</mat-selection-list>
