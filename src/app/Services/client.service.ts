@@ -6,17 +6,16 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ClientService {
-
   baseUrl = environment.apiUrl + 'client';
-  client = new BehaviorSubject<Client>({id: 0, name: '', phoneNumber: '' });
+  client = new BehaviorSubject<Client>({ id: 0, name: '', phoneNumber: '' });
   currentClient = this.client.asObservable();
 
   constructor(private httpClient: HttpClient) {}
 
-  changeCurrentClient(client: Client){
+  changeCurrentClient(client: Client) {
     this.client.next(client);
   }
 
@@ -24,8 +23,10 @@ export class ClientService {
     return this.httpClient.get<Client[]>(this.baseUrl);
   }
 
-  getAllAddresses(clientId: number){
-    return this.httpClient.get<Address[]>(this.baseUrl + '/' + clientId + '/address')
+  getAllAddresses(clientId: number) {
+    return this.httpClient.get<Address[]>(
+      this.baseUrl + '/' + clientId + '/address'
+    );
   }
 
   addClient(client: any) {
@@ -33,6 +34,19 @@ export class ClientService {
   }
 
   addAddress(clientId: number, address: any) {
-    return this.httpClient.post(this.baseUrl + '/' + clientId + '/address', address);
+    return this.httpClient.post(
+      this.baseUrl + '/' + clientId + '/address',
+      address
+    );
+  }
+
+  deleteClient(clientId: number) {
+    return this.httpClient.delete(this.baseUrl + '/' + clientId);
+  }
+
+  deleteAddress(clientId: number, addressId: number) {
+    return this.httpClient.delete(
+      this.baseUrl + '/' + clientId + '/address/' + addressId
+    );
   }
 }

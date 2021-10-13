@@ -20,17 +20,27 @@ export class ClientListComponent implements OnInit {
   }
 
   getAllClients() {
-    this.clientService.getAllClients().subscribe(res => {
+    this.clientService.getAllClients().subscribe((res) => {
       this.clients = res;
     });
   }
 
   changeClient(event: any) {
-    this.clientService.changeCurrentClient(event.selectedOptions.selected[0]?.value);
+    this.clientService.changeCurrentClient(
+      event.selectedOptions.selected[0]?.value
+    );
   }
 
   addClient() {
-    this.clientService.addClient({name: this.name, phoneNumber: this.phoneNumber}).subscribe(() => {
+    this.clientService
+      .addClient({ name: this.name, phoneNumber: this.phoneNumber })
+      .subscribe(() => {
+        this.getAllClients();
+      });
+  }
+
+  deleteClient(clientId: number) {
+    this.clientService.deleteClient(clientId).subscribe(() => {
       this.getAllClients();
     });
   }

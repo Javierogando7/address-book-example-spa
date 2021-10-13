@@ -33,14 +33,21 @@ export class AddressListComponent implements OnInit {
 
   addAddress() {
     if (this.client.id > 0) {
-      this.clientService.addAddress(this.client.id, {
-        city: this.city,
-        country: this.country,
-        details: this.address,
-      }).subscribe(() => {
-        this.getAddress(this.client.id);
-      });
+      this.clientService
+        .addAddress(this.client.id, {
+          city: this.city,
+          country: this.country,
+          details: this.address,
+        })
+        .subscribe(() => {
+          this.getAddress(this.client.id);
+        });
     }
-    
+  }
+
+  deleteAddress(addressId: number) {
+    this.clientService.deleteAddress(this.client.id, addressId).subscribe(() => {
+      this.getAddress(this.client.id);
+    });
   }
 }

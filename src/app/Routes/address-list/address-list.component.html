@@ -40,5 +40,13 @@
   <p *ngIf="addresses.length < 1">No tiene direcciones</p>
   <mat-list-item *ngFor="let address of addresses">
     {{ address.country }}, {{ address.city }}, {{ address.details }}
+    <button
+        mat-button
+        color="primary"
+        aria-label="Example icon button with a home icon"
+        (click)="deleteAddress(address.id)"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
   </mat-list-item>
 </mat-list>
